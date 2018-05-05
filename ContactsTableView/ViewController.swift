@@ -24,9 +24,18 @@ class ViewController: UITableViewController {
         ["David", "Dan"],
         ["Patrick", "Patty"]
     ]
+    
+    @objc func handleShowIndexPath() {
+        print("attemiping reload animaiton of indexPaths...")
+        
+        let indexPath = IndexPath(row: 0, section: 0)
+        tableView.reloadRows(at: [indexPath], with: .left)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Show IndexPath", style: .plain, target: self, action: #selector(handleShowIndexPath))
         
         navigationItem.title = "Contacts"
         if #available(iOS 11.0, *) {
