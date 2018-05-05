@@ -28,8 +28,23 @@ class ViewController: UITableViewController {
     @objc func handleShowIndexPath() {
         print("attemiping reload animaiton of indexPaths...")
         
-        let indexPath = IndexPath(row: 0, section: 0)
-        tableView.reloadRows(at: [indexPath], with: .left)
+        //build all the indexPaths we want to reload
+        var indexPathsToReload = [IndexPath]()
+        
+        for section in twoDimensionalArray.indices {
+            
+            
+            for row in twoDimensionalArray[section].indices {
+                print(section, row)
+            }
+        }
+        
+//        for index in twoDimensionalArray[0].indices {
+//            let indexPath = IndexPath(row: index, section: 0)
+//            indexPathsToReload.append(indexPath)
+//        }
+        
+        tableView.reloadRows(at: indexPathsToReload, with: .right)
     }
 
     override func viewDidLoad() {
