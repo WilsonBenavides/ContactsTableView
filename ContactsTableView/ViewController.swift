@@ -12,8 +12,17 @@ class ViewController: UITableViewController {
     
     let cellId = "cellIdid123123"
     
-    let names = [
-        "Amy", "Bill", "Zack", "Steve", "Jack", "Amy", "Bill"
+    let names = ["Amy", "Bill", "Zack", "Steve", "Jack", "Amy", "Bill"]
+    
+    let cNames = ["Carl", "Homer", "Marge", "Bart", "Lisa"]
+    
+    let dNames = ["David", "Dan"]
+    
+    let twoDimensionalArray = [
+        ["Amy", "Bill", "Zack", "Steve", "Jack", "Amy", "Bill"],
+        ["Carl", "Homer", "Marge", "Bart", "Lisa"],
+        ["David", "Dan"],
+        ["Patrick", "Patty"]
     ]
 
     override func viewDidLoad() {
@@ -22,8 +31,7 @@ class ViewController: UITableViewController {
         navigationItem.title = "Contacts"
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true
-        } else {
-        }
+        } else {   }
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
     }
     
@@ -35,19 +43,26 @@ class ViewController: UITableViewController {
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return twoDimensionalArray.count
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return names.count
+        
+        return twoDimensionalArray[section].count
+//        if section == 0 {
+//            return names.count
+//        }
+//        return cNames.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
         
-        let name = self.names[indexPath.row]
-        cell.textLabel?.text = name
+        //let name = self.names[indexPath.row]
+        //let name = indexPath.section == 0 ? names[indexPath.row] : cNames[indexPath.row]
         
+        let name = twoDimensionalArray[indexPath.section][indexPath.row]
+        cell.textLabel?.text = name
         cell.textLabel?.text = "\(name) Section:\(indexPath.section) Row.\(indexPath.row)"
         return cell
     }
