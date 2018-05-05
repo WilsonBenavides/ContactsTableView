@@ -13,7 +13,7 @@ class ViewController: UITableViewController {
     let cellId = "cellIdid123123"
     
     let names = [
-        "Amy", "Bill", "Zack", "Steve", "Jack"
+        "Amy", "Bill", "Zack", "Steve", "Jack", "Amy", "Bill"
     ]
 
     override func viewDidLoad() {
@@ -27,6 +27,17 @@ class ViewController: UITableViewController {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
     }
     
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let label = UILabel()
+        label.text = "Header"
+        label.backgroundColor = UIColor.lightGray
+        return label
+    }
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return names.count
     }
@@ -36,6 +47,8 @@ class ViewController: UITableViewController {
         
         let name = self.names[indexPath.row]
         cell.textLabel?.text = name
+        
+        cell.textLabel?.text = "\(name) Section:\(indexPath.section) Row.\(indexPath.row)"
         return cell
     }
 }
