@@ -18,7 +18,7 @@ class ViewController: UITableViewController {
     
     let dNames = ["David", "Dan"]
     
-    let twoDimensionalArray = [
+    var twoDimensionalArray = [
         ["Amy", "Bill", "Zack", "Steve", "Jack", "Amy", "Bill"],
         ["Carl", "Homer", "Marge", "Bart", "Lisa"],
         ["David", "Dan"],
@@ -79,8 +79,19 @@ class ViewController: UITableViewController {
         return button
     }
     
-    @objc func handleExpandClose() {
+    @objc func handleExpandClose(button: UIButton) {
         print("Trying to expand and close section...")
+        
+        let section = 0
+        //we'll try to close the section first by deleting the rows
+        var indexPaths = [IndexPath]()
+        for row in twoDimensionalArray[section].indices {
+            print(0, row)
+            let indexPath = IndexPath(row: row, section: section)
+            indexPaths.append(indexPath)
+        }
+        twoDimensionalArray[section].removeAll()
+        tableView.deleteRows(at: indexPaths, with: .fade)
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
