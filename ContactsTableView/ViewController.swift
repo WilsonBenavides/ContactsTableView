@@ -25,6 +25,8 @@ class ViewController: UITableViewController {
         ["Patrick", "Patty"]
     ]
     
+    var showIndexPaths = false
+    
     @objc func handleShowIndexPath() {
         print("attemiping reload animaiton of indexPaths...")
         
@@ -36,6 +38,8 @@ class ViewController: UITableViewController {
             
             for row in twoDimensionalArray[section].indices {
                 print(section, row)
+                let indexPath = IndexPath(row: row, section: section)
+                indexPathsToReload.append(indexPath)
             }
         }
         
@@ -44,7 +48,11 @@ class ViewController: UITableViewController {
 //            indexPathsToReload.append(indexPath)
 //        }
         
-        tableView.reloadRows(at: indexPathsToReload, with: .right)
+        showIndexPaths = !showIndexPaths
+        
+        let animationStyle = showIndexPaths ? UITableViewRowAnimation.right : .left
+        
+        tableView.reloadRows(at: indexPathsToReload, with: animationStyle)
     }
 
     override func viewDidLoad() {
@@ -60,10 +68,23 @@ class ViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let label = UILabel()
-        label.text = "Header"
-        label.backgroundColor = UIColor.lightGray
-        return label
+        
+        let button = UIButton(type: .system)
+        button.setTitle("Close", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.backgroundColor = .yellow
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+        
+        button.addTarget(self, action: #selector(handleExpandClose), for: .touchUpInside)
+        return button
+    }
+    
+    @objc func handleExpandClose() {
+        print("Trying to expand and close section...")
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 34
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -73,21 +94,18 @@ class ViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return twoDimensionalArray[section].count
-//        if section == 0 {
-//            return names.count
-//        }
-//        return cNames.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
         
-        //let name = self.names[indexPath.row]
-        //let name = indexPath.section == 0 ? names[indexPath.row] : cNames[indexPath.row]
-        
         let name = twoDimensionalArray[indexPath.section][indexPath.row]
         cell.textLabel?.text = name
-        cell.textLabel?.text = "\(name) Section:\(indexPath.section) Row.\(indexPath.row)"
+        
+        if showIndexPaths {
+            cell.textLabel?.text = "\(name) Section:\(indexPath.section) Row.\(indexPath.row)"
+        }
+        
         return cell
     }
 }
