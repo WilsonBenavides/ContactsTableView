@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		101B2391209E5C300016782F /* ExpandableNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101B2390209E5C300016782F /* ExpandableNames.swift */; };
 		10AFCB22209DEAD9006B42DE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10AFCB21209DEAD9006B42DE /* AppDelegate.swift */; };
 		10AFCB24209DEAD9006B42DE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10AFCB23209DEAD9006B42DE /* ViewController.swift */; };
 		10AFCB27209DEAD9006B42DE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10AFCB25209DEAD9006B42DE /* Main.storyboard */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		101B2390209E5C300016782F /* ExpandableNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableNames.swift; sourceTree = "<group>"; };
 		10AFCB1E209DEAD9006B42DE /* ContactsTableView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ContactsTableView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10AFCB21209DEAD9006B42DE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		10AFCB23209DEAD9006B42DE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -60,6 +62,7 @@
 				10AFCB28209DEADB006B42DE /* Assets.xcassets */,
 				10AFCB2A209DEADB006B42DE /* LaunchScreen.storyboard */,
 				10AFCB2D209DEADB006B42DE /* Info.plist */,
+				101B2390209E5C300016782F /* ExpandableNames.swift */,
 			);
 			path = ContactsTableView;
 			sourceTree = "<group>";
@@ -135,6 +138,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				101B2391209E5C300016782F /* ExpandableNames.swift in Sources */,
 				10AFCB24209DEAD9006B42DE /* ViewController.swift in Sources */,
 				10AFCB22209DEAD9006B42DE /* AppDelegate.swift in Sources */,
 			);
