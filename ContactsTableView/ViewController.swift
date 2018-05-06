@@ -20,8 +20,12 @@ class ViewController: UITableViewController {
         let indexPathTapped = tableView.indexPath(for: cell)
         //print(indexPathTapped)
         
-        let name = twoDimensionalArray[indexPathTapped!.section].names[indexPathTapped!.row]
-        print(name)
+        let contact = twoDimensionalArray[indexPathTapped!.section].names[indexPathTapped!.row]
+        print(contact)
+        
+        let hasFavorited = contact.hasFavorited
+        
+        twoDimensionalArray[indexPathTapped!.section].names[indexPathTapped!.row].hasFavorited = !hasFavorited
     }
     
     var twoDimensionalArray = [
@@ -137,6 +141,8 @@ class ViewController: UITableViewController {
         
         let contact = twoDimensionalArray[indexPath.section].names[indexPath.row]
         cell.textLabel?.text = contact.name
+        
+        cell.accessoryView?.tintColor
         
         if showIndexPaths {
             cell.textLabel?.text = "\(contact.name) Section:\(indexPath.section) Row.\(indexPath.row)"
