@@ -12,11 +12,23 @@ class ViewController: UITableViewController {
     
     let cellId = "cellIdid123123"
     
+    //you should use Custom Delegation properly instea
+    func someMethodIWantToCall(cell: UITableViewCell) {
+        //print("Inside of ViewController now...")
+        
+        //we're going to figure out which name we're clicking on
+        let indexPathTapped = tableView.indexPath(for: cell)
+        //print(indexPathTapped)
+        
+        let name = twoDimensionalArray[indexPathTapped!.section].names[indexPathTapped!.row]
+        print(name)
+    }
+    
     var twoDimensionalArray = [
-        ExpandableNames(isExpanded: true, names: ["Amy", "Bill", "Zack", "Steve", "Jack", "Amy", "Bill"]),
-        ExpandableNames(isExpanded: true, names: ["Carl", "Homer", "Marge", "Bart", "Lisa"]),
-        ExpandableNames(isExpanded: true, names: ["David", "Dan"]),
-        ExpandableNames(isExpanded: true, names: ["Patrick", "Patty"])
+//        ExpandableNames(isExpanded: false, names: ["Amy", "Bill", "Zack", "Steve", "Jack", "Amy", "Bill"]),
+//        ExpandableNames(isExpanded: false, names: ["Carl", "Homer", "Marge", "Bart", "Lisa"]),
+//        ExpandableNames(isExpanded: false, names: ["David", "Dan"]),
+        ExpandableNames(isExpanded: false, names: [Contact(name: "Patrick", hasFavorited: false)])
     ]
     
     var showIndexPaths = false
@@ -59,7 +71,7 @@ class ViewController: UITableViewController {
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true
         } else {   }
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
+        tableView.register(ContactCell.self, forCellReuseIdentifier: cellId)
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -68,7 +80,7 @@ class ViewController: UITableViewController {
         button.setTitle("Close", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .yellow
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 40)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 25)
         
         button.addTarget(self, action: #selector(handleExpandClose), for: .touchUpInside)
         
@@ -118,13 +130,16 @@ class ViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
         
-        let name = twoDimensionalArray[indexPath.section].names[indexPath.row]
-        cell.textLabel?.text = name
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! ContactCell
+        
+        cell.link = self
+        
+        let contact = twoDimensionalArray[indexPath.section].names[indexPath.row]
+        cell.textLabel?.text = contact.name
         
         if showIndexPaths {
-            cell.textLabel?.text = "\(name) Section:\(indexPath.section) Row.\(indexPath.row)"
+            cell.textLabel?.text = "\(contact.name) Section:\(indexPath.section) Row.\(indexPath.row)"
         }
         
         return cell
