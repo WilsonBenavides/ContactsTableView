@@ -28,13 +28,14 @@ class ViewController: UITableViewController {
         
         twoDimensionalArray[indexPathTapped.section].names[indexPathTapped.row].hasFavorited = !hasFavorited
         
-        tableView.reloadRows(at: [indexPathTapped], with: .fade)
+        //tableView.reloadRows(at: [indexPathTapped], with: .fade)
+        cell.accessoryView?.tintColor = hasFavorited ? UIColor.lightGray : .red
     }
     
     var twoDimensionalArray = [
-//        ExpandableNames(isExpanded: false, names: ["Amy", "Bill", "Zack", "Steve", "Jack", "Amy", "Bill"]),
-//        ExpandableNames(isExpanded: false, names: ["Carl", "Homer", "Marge", "Bart", "Lisa"]),
-//        ExpandableNames(isExpanded: false, names: ["David", "Dan"]),
+        ExpandableNames(isExpanded: false, names: ["Amy", "Bill", "Zack", "Steve", "Jack", "Amy", "Bill"].map{ Contact(name: $0, hasFavorited: false) }),
+        ExpandableNames(isExpanded: false, names: ["Carl", "Homer", "Marge", "Bart", "Lisa"].map{ Contact(name: $0, hasFavorited: false) }),
+        ExpandableNames(isExpanded: false, names: ["David", "Dan"].map{ Contact(name: $0, hasFavorited: false) }),
         ExpandableNames(isExpanded: false, names: [Contact(name: "Patrick", hasFavorited: false)])
     ]
     
@@ -56,11 +57,6 @@ class ViewController: UITableViewController {
                 indexPathsToReload.append(indexPath)
             }
         }
-        
-//        for index in twoDimensionalArray[0].indices {
-//            let indexPath = IndexPath(row: index, section: 0)
-//            indexPathsToReload.append(indexPath)
-//        }
         
         showIndexPaths = !showIndexPaths
         
@@ -145,7 +141,7 @@ class ViewController: UITableViewController {
         let contact = twoDimensionalArray[indexPath.section].names[indexPath.row]
         cell.textLabel?.text = contact.name
         
-        cell.accessoryView?.tintColor = contact.hasFavorited ? .lightGray : UIColor.red
+        cell.accessoryView?.tintColor = contact.hasFavorited ? UIColor.red : .lightGray
         
         if showIndexPaths {
             cell.textLabel?.text = "\(contact.name) Section:\(indexPath.section) Row.\(indexPath.row)"
