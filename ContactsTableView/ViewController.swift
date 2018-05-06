@@ -17,15 +17,18 @@ class ViewController: UITableViewController {
         //print("Inside of ViewController now...")
         
         //we're going to figure out which name we're clicking on
-        let indexPathTapped = tableView.indexPath(for: cell)
-        //print(indexPathTapped)
         
-        let contact = twoDimensionalArray[indexPathTapped!.section].names[indexPathTapped!.row]
+        guard let indexPathTapped = tableView.indexPath(for: cell) else { return }
+        
+        
+        let contact = twoDimensionalArray[indexPathTapped.section].names[indexPathTapped.row]
         print(contact)
         
         let hasFavorited = contact.hasFavorited
         
-        twoDimensionalArray[indexPathTapped!.section].names[indexPathTapped!.row].hasFavorited = !hasFavorited
+        twoDimensionalArray[indexPathTapped.section].names[indexPathTapped.row].hasFavorited = !hasFavorited
+        
+        tableView.reloadRows(at: [indexPathTapped], with: .fade)
     }
     
     var twoDimensionalArray = [
@@ -142,7 +145,7 @@ class ViewController: UITableViewController {
         let contact = twoDimensionalArray[indexPath.section].names[indexPath.row]
         cell.textLabel?.text = contact.name
         
-        cell.accessoryView?.tintColor
+        cell.accessoryView?.tintColor = contact.hasFavorited ? .lightGray : UIColor.red
         
         if showIndexPaths {
             cell.textLabel?.text = "\(contact.name) Section:\(indexPath.section) Row.\(indexPath.row)"
